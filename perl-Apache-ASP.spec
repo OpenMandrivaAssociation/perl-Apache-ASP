@@ -3,7 +3,7 @@
 Summary:	Apache::ASP - A perl ASP port to Apache
 Name:		perl-%{realname}
 Version:	2.59
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPL
 Group:		Development/Perl
 Url:		http://search.cpan.org/dist/%{realname}
@@ -14,10 +14,10 @@ Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):  apache-conf >= 2.2.0
 Requires(pre):  apache >= 2.2.0
-Requires(pre):	apache-mpm-prefork >= 2.2.0
+Requires(pre):	apache-mpm >= 2.2.0
 Requires(pre):	apache-mod_perl >= 1:2.0.2
 Requires:	apache-conf >= 2.2.0
-Requires:	apache-mpm-prefork >= 2.2.0
+Requires:	apache-mpm >= 2.2.0
 Requires:	apache-mod_perl >= 1:2.0.2
 BuildRequires:	perl-devel
 BuildRequires:	perl(Apache::Filter)
