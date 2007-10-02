@@ -3,7 +3,7 @@
 Summary:	Apache::ASP - A perl ASP port to Apache
 Name:		perl-%{realname}
 Version:	2.59
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPL
 Group:		Development/Perl
 Url:		http://search.cpan.org/dist/%{realname}
@@ -40,7 +40,7 @@ BuildRequires:	perl(CGI)
 BuildRequires:	perl(DB_File)
 BuildRequires:  perl(Apache::Filter)
 Provides:	perl(Apache::ASP::Share::CORE)
-Provides:	Apache-ASP %{version}-%{release}
+Provides:	Apache-ASP = %{version}-%{release}
 Obsoletes:	Apache-ASP
 BuildArch:	noarch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
