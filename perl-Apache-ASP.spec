@@ -43,7 +43,6 @@ Provides:	perl(Apache::ASP::Share::CORE)
 Provides:	Apache-ASP = %{version}-%{release}
 Obsoletes:	Apache-ASP
 BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 Apache::ASP provides an Active Server Pages port to the Apache Web Server
