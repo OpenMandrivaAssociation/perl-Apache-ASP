@@ -1,15 +1,15 @@
-%define realname Apache-ASP
+%define module Apache-ASP
 
 Summary:	Apache::ASP - A perl ASP port to Apache
-Name:		perl-%{realname}
-Version:	2.59
-Release:	%mkrel 4
+Name:		perl-%{module}
+Version:	2.61
+Release:	%mkrel 1
 License:	GPL
 Group:		Development/Perl
-Url:		http://search.cpan.org/dist/%{realname}
-Source0:	ftp://ftp.perl.org/pub/CPAN/modules/by-module/Apache/%{realname}-%{version}.tar.bz2
+Url:		http://search.cpan.org/dist/%{module}
+Source0:	ftp://ftp.perl.org/pub/CPAN/modules/by-module/Apache/%{module}-%{version}.tar.bz2
 Source1:	asp.html
-Source2:	perl-Apache-ASP.conf.bz2
+Source2:	perl-Apache-ASP.conf
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):  apache-conf >= 2.2.0
@@ -21,11 +21,9 @@ Requires:	apache-mpm >= 2.2.0
 Requires:	apache-mod_perl >= 1:2.0.2
 BuildRequires:	perl-devel
 BuildRequires:	perl(Apache::Filter)
-#BuildRequires:	perl(Apache::SSI)
 BuildRequires:	perl-base
 BuildRequires:	perl(Compress::Zlib)
 BuildRequires:	perl(DB_File)
-BuildRequires:	perl(Devel::Symdump)
 BuildRequires:	perl(HTML::Clean)
 BuildRequires:	perl(MLDBM)
 BuildRequires:  perl(MLDBM::Sync)
@@ -68,43 +66,30 @@ For database access, ActiveX, scripting languages, and other miscellaneous
 issues please read the FAQ section.
 
 %prep
-
-%setup -q -n %{realname}-%{version}
+%setup -q -n %{module}-%{version}
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
 %make
+
+%check
+# optional test, causes trouble when Devel::Symdump is installed
+rm -f t/stat_inc
 make test
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
-#eval `perl '-V:installarchlib'`
-#mkdir -p %{buildroot}/$installarchlib
-
-make
-perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g;" ASP.pm
 %makeinstall_std
-mkdir -p %{buildroot}%{_var}/www/perl/%{realname}
-mkdir -p %{buildroot}%{_var}/www/html/addon-modules/
-rm -f ASP.pm
-rm -rf blib
-rm -f Makefile*
-rm -f pm_to_blib
-#cd cgi
-#perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g;" asp
-#cd ..
-cd site
-for i in *;do perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g;" $i;done
-#cd eg
-#for i in *;do perl -pi -e "s|/usr/local/bin/perl|%{_bindir}/perl|g;" $i;done
-#cd ../../
-cp %{SOURCE1} %{buildroot}%{_var}/www/html/addon-modules/%{realname}.html
-cp -dpr *  %{buildroot}%{_var}/www/perl/%{realname}/
-rm -rf %{buildroot}/%{_var}/www/perl/%{realname}/t
 
-install -d %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d
-bzcat %{SOURCE2} > %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/perl-Apache-ASP.conf
+install -d -m 755 %{buildroot}%{_var}/www/perl
+cp -pr site %{buildroot}%{_var}/www/perl/%{module}
+
+install -d -m 755 %{buildroot}%{_var}/www/html/addon-modules/
+cp %{SOURCE1} %{buildroot}%{_var}/www/html/addon-modules/%{module}.html
+
+install -d -m 755 %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d
+install %{SOURCE2} -m 644  %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/perl-Apache-ASP.conf
 
 %post
 if [ -f %{_var}/lock/subsys/httpd ]; then
@@ -119,14 +104,14 @@ if [ "$1" = "0" ]; then
 fi
 
 %clean 
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
 %doc CHANGES README
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/perl-Apache-ASP.conf
-%dir %{_var}/www/perl/%{realname}
-%{_var}/www/perl/%{realname}/*
+%config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/perl-Apache-ASP.conf
+%dir %{_var}/www/perl/%{module}
+%{_var}/www/perl/%{module}/*
 %{perl_vendorlib}/Apache
 %{perl_vendorlib}/Bundle/Apache
 %{_mandir}/*/*
