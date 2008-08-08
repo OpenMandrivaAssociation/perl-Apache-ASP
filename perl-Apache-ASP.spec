@@ -3,7 +3,7 @@
 Summary:	Apache::ASP - A perl ASP port to Apache
 Name:		perl-%{module}
 Version:	2.61
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPL
 Group:		Development/Perl
 Url:		http://search.cpan.org/dist/%{module}
