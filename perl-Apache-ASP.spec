@@ -1,24 +1,18 @@
-%define module Apache-ASP
+%define upstream_name    Apache-ASP
+%define upstream_version 2.61
+
+Name:       perl-%{upstream_name}
+Version:    %perl_convert_version %{upstream_version}
+Release:    %mkrel 1
 
 Summary:	Apache::ASP - A perl ASP port to Apache
-Name:		perl-%{module}
-Version:	2.61
-Release:	%mkrel 2
 License:	GPL
 Group:		Development/Perl
-Url:		http://search.cpan.org/dist/%{module}
-Source0:	ftp://ftp.perl.org/pub/CPAN/modules/by-module/Apache/%{module}-%{version}.tar.bz2
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	ftp://ftp.perl.org/pub/CPAN/modules/by-module/Apache/%{upstream_name}-%{upstream_version}.tar.bz2
 Source1:	asp.html
 Source2:	perl-Apache-ASP.conf
-Requires(pre): rpm-helper
-Requires(postun): rpm-helper
-Requires(pre):  apache-conf >= 2.2.0
-Requires(pre):  apache >= 2.2.0
-Requires(pre):	apache-mpm >= 2.2.0
-Requires(pre):	apache-mod_perl >= 1:2.0.2
-Requires:	apache-conf >= 2.2.0
-Requires:	apache-mpm >= 2.2.0
-Requires:	apache-mod_perl >= 1:2.0.2
+
 BuildRequires:	perl-devel
 BuildRequires:	perl(Apache::Filter)
 BuildRequires:	perl-base
@@ -37,11 +31,20 @@ BuildRequires:  perl(XML::LibXSLT)
 BuildRequires:	perl(CGI)
 BuildRequires:	perl(DB_File)
 BuildRequires:  perl(Apache::Filter)
+BuildArch:	noarch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 Provides:	perl(Apache::ASP::Share::CORE)
 Provides:	Apache-ASP = %{version}-%{release}
 Obsoletes:	Apache-ASP
-BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
+Requires(pre): rpm-helper
+Requires(postun): rpm-helper
+Requires(pre):  apache-conf >= 2.2.0
+Requires(pre):  apache >= 2.2.0
+Requires(pre):	apache-mpm >= 2.2.0
+Requires(pre):	apache-mod_perl >= 1:2.0.2
+Requires:	apache-conf >= 2.2.0
+Requires:	apache-mpm >= 2.2.0
+Requires:	apache-mod_perl >= 1:2.0.2
 
 %description
 Apache::ASP provides an Active Server Pages port to the Apache Web Server
@@ -66,7 +69,7 @@ For database access, ActiveX, scripting languages, and other miscellaneous
 issues please read the FAQ section.
 
 %prep
-%setup -q -n %{module}-%{version}
+%setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
@@ -83,10 +86,10 @@ rm -rf %{buildroot}
 %makeinstall_std
 
 install -d -m 755 %{buildroot}%{_var}/www/perl
-cp -pr site %{buildroot}%{_var}/www/perl/%{module}
+cp -pr site %{buildroot}%{_var}/www/perl/%{upstream_name}
 
 install -d -m 755 %{buildroot}%{_var}/www/html/addon-modules/
-cp %{SOURCE1} %{buildroot}%{_var}/www/html/addon-modules/%{module}.html
+cp %{SOURCE1} %{buildroot}%{_var}/www/html/addon-modules/%{upstream_name}.html
 
 install -d -m 755 %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d
 install %{SOURCE2} -m 644  %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/perl-Apache-ASP.conf
@@ -110,13 +113,10 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc CHANGES README
 %config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/perl-Apache-ASP.conf
-%dir %{_var}/www/perl/%{module}
-%{_var}/www/perl/%{module}/*
+%dir %{_var}/www/perl/%{upstream_name}
+%{_var}/www/perl/%{upstream_name}/*
 %{perl_vendorlib}/Apache
 %{perl_vendorlib}/Bundle/Apache
 %{_mandir}/*/*
 %{_bindir}/*
 %{_var}/www/html/addon-modules/Apache-ASP.html
-
-
-
