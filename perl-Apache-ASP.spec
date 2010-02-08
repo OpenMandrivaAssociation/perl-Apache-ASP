@@ -3,9 +3,9 @@
 
 Name:       perl-%{upstream_name}
 Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 1
+Release:    %mkrel 2
 
-Summary:	Apache::ASP - A perl ASP port to Apache
+Summary:	A perl ASP port to Apache
 License:	GPL
 Group:		Development/Perl
 Url:		http://search.cpan.org/dist/%{upstream_name}
@@ -31,20 +31,16 @@ BuildRequires:  perl(XML::LibXSLT)
 BuildRequires:	perl(CGI)
 BuildRequires:	perl(DB_File)
 BuildRequires:  perl(Apache::Filter)
-BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 Provides:	perl(Apache::ASP::Share::CORE)
 Provides:	Apache-ASP = %{version}-%{release}
 Obsoletes:	Apache-ASP
-Requires(pre): rpm-helper
-Requires(postun): rpm-helper
-Requires(pre):  apache-conf >= 2.2.0
-Requires(pre):  apache >= 2.2.0
-Requires(pre):	apache-mpm >= 2.2.0
-Requires(pre):	apache-mod_perl >= 1:2.0.2
-Requires:	apache-conf >= 2.2.0
-Requires:	apache-mpm >= 2.2.0
+%if %mdkversion < 201010
+Requires(post):   rpm-helper
+Requires(postun):   rpm-helper
+%endif
 Requires:	apache-mod_perl >= 1:2.0.2
+BuildArch:	noarch
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}
 
 %description
 Apache::ASP provides an Active Server Pages port to the Apache Web Server
@@ -95,16 +91,14 @@ install -d -m 755 %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d
 install %{SOURCE2} -m 644  %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/perl-Apache-ASP.conf
 
 %post
-if [ -f %{_var}/lock/subsys/httpd ]; then
-    %{_initrddir}/httpd restart 1>&2;
-fi
+%if %mdkversion < 201010
+%_post_webapp
+%endif
 
 %postun
-if [ "$1" = "0" ]; then
-    if [ -f %{_var}/lock/subsys/httpd ]; then
-        %{_initrddir}/httpd restart 1>&2
-    fi
-fi
+%if %mdkversion < 201010
+%_postun_webapp
+%endif
 
 %clean 
 rm -rf %{buildroot}
@@ -112,7 +106,7 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %doc CHANGES README
-%config(noreplace) %{_sysconfdir}/httpd/conf/webapps.d/perl-Apache-ASP.conf
+%config(noreplace) %{webappconfdir}/perl-Apache-ASP.conf
 %dir %{_var}/www/perl/%{upstream_name}
 %{_var}/www/perl/%{upstream_name}/*
 %{perl_vendorlib}/Apache
