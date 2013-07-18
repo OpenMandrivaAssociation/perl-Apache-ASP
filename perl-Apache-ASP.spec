@@ -84,7 +84,7 @@ install %{SOURCE2} -m 644  %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/perl-
 
 %files
 %doc CHANGES README
-%config(noreplace) %{webappconfdir}/perl-Apache-ASP.conf
+%config(noreplace) %{_webappconfdir}/perl-Apache-ASP.conf
 %dir %{_var}/www/perl/%{upstream_name}
 %{_var}/www/perl/%{upstream_name}/*
 %{perl_vendorlib}/Apache
