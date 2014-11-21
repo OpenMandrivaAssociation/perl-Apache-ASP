@@ -1,2 +1,4 @@
+removed_sources:
+  Apache-ASP-2.61.tar.bz2: b148ffe9b311b84c5f412292774ecfd0bd933b1e
 sources:
-  "Apache-ASP-2.61.tar.bz2": b148ffe9b311b84c5f412292774ecfd0bd933b1e
+  Apache-ASP-2.62.tar.gz: d2022798e6651b5117551504e404e13f20605176

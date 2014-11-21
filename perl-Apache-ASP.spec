@@ -1,15 +1,16 @@
 %define upstream_name    Apache-ASP
-%define upstream_version 2.61
+%define upstream_version 2.62
 
 Name:		perl-%{upstream_name}
 Version:	%perl_convert_version %{upstream_version}
-Release:	6
+Release:	1
 
 Summary:	A perl ASP port to Apache
+
 License:	GPL
 Group:		Development/Perl
 Url:		http://search.cpan.org/dist/%{upstream_name}
-Source0:	ftp://ftp.perl.org/pub/CPAN/modules/by-module/Apache/%{upstream_name}-%{upstream_version}.tar.bz2
+Source0:	ftp://ftp.perl.org/pub/CPAN/modules/by-module/Apache/%{upstream_name}-%{upstream_version}.tar.gz
 Source1:	asp.html
 Source2:	perl-Apache-ASP.conf
 
@@ -93,63 +94,4 @@ install %{SOURCE2} -m 644  %{buildroot}%{_sysconfdir}/httpd/conf/webapps.d/perl-
 %{_bindir}/*
 %{_var}/www/html/addon-modules/Apache-ASP.html
 
-
-%changelog
-* Sat May 28 2011 Funda Wang <fwang@mandriva.org> 2.610.0-3mdv2011.0
-+ Revision: 680451
-- mass rebuild
-
-* Mon Feb 08 2010 Guillaume Rousse <guillomovitch@mandriva.org> 2.610.0-2mdv2011.0
-+ Revision: 502378
-- rely on filetrigger for reloading apache configuration begining with 2010.1, rpm-helper macros otherwise
-
-* Wed Jul 29 2009 JÃ©rÃ´me Quelin <jquelin@mandriva.org> 2.610.0-1mdv2010.0
-+ Revision: 402962
-- rebuild using %%perl_convert_version
-
-* Fri Aug 08 2008 Thierry Vignaud <tv@mandriva.org> 2.61-2mdv2009.0
-+ Revision: 268364
-- rebuild early 2009.0 package (before pixel changes)
-
-* Fri May 30 2008 Guillaume Rousse <guillomovitch@mandriva.org> 2.61-1mdv2009.0
-+ Revision: 213315
-- new version
-  uncompress additional sources
-  large spec cleanup
-
-  + Olivier Blin <oblin@mandriva.com>
-    - restore BuildRoot
-
-  + Thierry Vignaud <tv@mandriva.org>
-    - kill re-definition of %%buildroot on Pixel's request
-
-* Tue Oct 02 2007 Funda Wang <fwang@mandriva.org> 2.59-4mdv2008.0
-+ Revision: 94723
-- fix provides
-
-* Mon Jun 25 2007 Oden Eriksson <oeriksson@mandriva.com> 2.59-3mdv2008.0
-+ Revision: 43840
-- fix deps
-
-
-* Fri Oct 27 2006 Nicolas LÃ©cureuil <neoclust@mandriva.org> 2.59-2mdv2007.0
-+ Revision: 73193
-- import perl-Apache-ASP-2.59-2mdk
-
-* Fri Apr 28 2006 Nicolas Lécureuil <neoclust@mandriva.org> 2.59-2mdk
-- Fix SPEC Using perl Policies
-	- BuildRequires
-	- URL
-	- Source URL
-
-* Tue Jan 31 2006 Oden Eriksson <oeriksson@mandrakesoft.com> 2.59-1mdk
-- 2.59
-- renamed to perl-Apache-ASP
-- added apache config
-
-* Fri Feb 18 2005 Oden Eriksson <oeriksson@mandrakesoft.com> 2.51-5mdk
-- spec file cleanups, remove the ADVX-build stuff
-
-* Tue Mar 02 2004 Olivier Thauvin <thauvin@aerov.jussieu.fr> 2.51-4mdk
-- rebuild
 
