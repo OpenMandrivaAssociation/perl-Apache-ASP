@@ -9,7 +9,7 @@ Summary:	A perl ASP port to Apache
 
 License:	GPL
 Group:		Development/Perl
-Url:		http://search.cpan.org/dist/%{upstream_name}
+Url:		https://search.cpan.org/dist/%{upstream_name}
 Source0:	ftp://ftp.perl.org/pub/CPAN/modules/by-module/Apache/%{upstream_name}-%{upstream_version}.tar.gz
 Source1:	asp.html
 Source2:	perl-Apache-ASP.conf
