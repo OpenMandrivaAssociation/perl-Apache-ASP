@@ -14,6 +14,7 @@ Source0:	ftp://ftp.perl.org/pub/CPAN/modules/by-module/Apache/%{upstream_name}-%
 Source1:	asp.html
 Source2:	perl-Apache-ASP.conf
 
+BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl(Apache::Filter)
 BuildRequires:	perl-base
