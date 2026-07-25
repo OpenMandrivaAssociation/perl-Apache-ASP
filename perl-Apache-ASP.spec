@@ -1,16 +1,16 @@
 %define upstream_name    Apache-ASP
-%define upstream_version 2.62
+%define upstream_version 2.63
 
 Name:		perl-%{upstream_name}
-Version:	%perl_convert_version %{upstream_version}
-Release:	2
+Version:	%{upstream_version}
+Release:	1
 
 Summary:	A perl ASP port to Apache
 
 License:	GPL
 Group:		Development/Perl
-Url:		https://search.cpan.org/dist/%{upstream_name}
-Source0:	ftp://ftp.perl.org/pub/CPAN/modules/by-module/Apache/%{upstream_name}-%{upstream_version}.tar.gz
+Url:		https://metacpan.org/dist/Apache-ASP
+Source0:	https://cpan.metacpan.org/authors/id/C/CH/CHAMAS/Apache-ASP-%{upstream_version}.tar.gz
 Source1:	asp.html
 Source2:	perl-Apache-ASP.conf
 
